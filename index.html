@@ -88,7 +88,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Understanding, Rehearsing, and Introspecting: Learn a Policy from Textual Tutorial Books in Football Games</h1>
+          <h1 class="title is-1 publication-title">Policy Learning from Tutorial Books via Understanding, Rehearsing and Introspecting</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://xionghuichen.github.io/">Xiong-Hui Chen</a><sup><b>*</b>,1</sup>,</span>
@@ -137,7 +137,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org"
+                <a href="https://neurips.cc/virtual/2024/poster/96082"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -147,7 +147,7 @@
               </span>
               <!-- Video Link. -->
               <span class="link-block">
-                <a href="https://anonymous.4open.science/r/URI_video_COLM/README.md"
+                <a href="https://github.com/ziyan-wang98/URI_video_NeurIPS"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-youtube"></i>
@@ -263,24 +263,11 @@
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-2">Abstract</h2>
         <div class="content has-text-justified">
-          <p>
-            When humans need to learn a new skill, we can acquire knowledge through written books, including textbooks, tutorials, 
-            and comments from previous learners. However, current research for decision-making, like reinforcement learning (RL), 
-            has primarily required numerous real interactions with the target environment to learn a skill, 
-            while failing to utilize the existing knowledge already summarized in the text. 
-            The success of Large Language Models (LLMs) sheds light on utilizing such knowledge behind books. 
-          </p>
-          <p>
-            In this paper, we discuss a new policy learning problem, called Policy Learning from Books (<b>PLfB</b>), 
-            which aims to leverage rich resources such as books and tutorials to derive a policy network. 
-            Inspired by how humans learn from books, we solve the problem via a three-stage framework: understanding, rehearsing, and introspecting (URI). 
-            In particular, it first rehearses decision-making trajectories based on the derived knowledge after understanding the books, then
-            introspects on the imaginary dataset to distill a policy network. 
-            We give the first practical implementation for each stage based on several advanced techniques of LLMs and RL.
-            To validate the practicality of this methodology, we train a football-playing policy and test it in Google Football game. 
-            The agent can beat the built-in AI with 35.6% winning rate without interaction with the environment during training.
+          <p style="font-size: 1.2em;">
+            When humans need to learn a new skill, we can acquire knowledge through written books, including textbooks, tutorials, etc. However, current research for decision-making, like reinforcement learning (RL), has primarily required numerous real interactions with the target environment to learn a skill, while failing to utilize the existing knowledge already summarized in the text. The success of Large Language Models (LLMs) sheds light on utilizing such knowledge behind the books. 
+            In this paper, we discuss a new policy learning problem called <strong>P</strong>olicy <strong>L</strong>earning from tutorial <strong>B</strong>ooks (<strong>PLfB</strong>), which aims to leverage rich resources such as books and tutorials to derive a policy network. Inspired by how humans learn from books, we solve the problem via a three-stage framework: <strong>U</strong>nderstanding, <strong>R</strong>ehearsing, and <strong>I</strong>ntrospecting (<strong>URI</strong>). In particular, it first rehearses decision-making trajectories based on the derived knowledge after understanding the books, then introspects in the imaginary dataset to distill a policy network. To validate the practicality of this methodology, we train a football-playing policy via URI and test it in the Google Football game. The agent can beat the built-in AI with a 37% winning rate without interaction with the environment during training, while using GPT as the agent can only achieve a 6% winning rate.
           </p>
         </div>
       </div>
@@ -288,6 +275,7 @@
     <!--/ Abstract. -->
 
     <!-- Paper video. -->
+    <!-- TODO: add the talk video -->
     <!-- <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
@@ -304,44 +292,398 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-
+    <h2 class="title is-2">Policy Learning from Books</h2>
     <div class="columns is-centered">
-
-      <!-- Visual Effects. -->
-      <!-- <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
+      <div class="column is-full-width">
+        <figure class="image">
+          <img src="./static/images/PER-problem.png" alt="Comparison of Policy Learning Methods">
+          <!-- <figcaption class="has-text-centered" style="font-size: 1.1em;">Figure: Comparison of policy learning from books versus learning from data</figcaption> -->
+        </figure>
+        <div class="content has-text-justified">
+          <p style="font-size: 1.2em;">
+            In this study, we introduce a novel topic built upon the shoulders of LLMs' systems: Policy Learning from Books (<strong>PLfB</strong>). <strong>PLfB</strong> aims to derive a policy network directly from natural language texts, bypassing the need for numerous real-world interaction data, as shown in this figure. This can be viewed as a further step towards enabling more resources for policy learning and also a more generalized form of offline RL, which uses textbooks to learn a policy offline.
           </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
         </div>
-      </div> -->
-      <!--/ Visual Effects. -->
+      </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Matting. -->
-      <!-- <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2">Method</h2>
+    <div class="content has-text-justified">
+      
+      <figure class="image">
+        <img src="./static/images/framework_new.drawio (1).png" alt="URI Framework Detailed Overview">
+        <!-- <figcaption class="has-text-centered" style="font-size: 1.1em;">Figure: Detailed overview of the URI (Understanding, Rehearsing, Introspecting) framework</figcaption> -->
+      </figure>
+      <p style="font-size: 1.2em;">
+        To realize <strong>PLfB</strong>, inspired by human learning processes, we propose a three-stage learning methodology: Understanding, Rehearsal, and Introspection (<strong>URI</strong>), which is shown in Figure above.  
+        For understanding, it first extracts knowledge from books to form a knowledge database; then it rehearses imaginary decision-making trajectories with the help of the knowledge retrieved from the database; finally, it introspects on the imaginary dataset to distill a policy network for decision-making.
+      </p>
+
+      <figure class="image">
+        <img src="./static/images/phrase-1.png" alt="URI">
+        <!-- <figcaption class="has-text-centered" style="font-size: 1.1em;">Figure: Detailed overview of the URI (Understanding, Rehearsing, Introspecting) framework</figcaption> -->
+      </figure>
+
+      <p style="font-size: 1.2em;">Our proposed URI framework consists of three main stages:</p>
+      <ol style="font-size: 1.2em;">
+        <li><strong>Understanding:</strong> The knowledge extractor and aggregator modules process paragraphs from books to form a structured knowledge database organized as pseudo-code.</li>
+        <li><strong>Rehearsing:</strong> Using the knowledge database, the simulator generates and iterates through imagined states, actions, and rewards to create an extensive imaginary dataset.</li>
+        <li><strong>Introspecting:</strong> The introspection module refines the policy network by evaluating and correcting errors in the generated states, actions, and rewards to ensure accurate and effective policy implementation.</li>
+      </ol>
+      
+      <!-- <div class="content">
+        <h3 class="title is-4">Detailed Implementation</h3> -->
+        
+        <div class="tabs">
+          <ul>
+            <li class="is-active" data-tab="tab1"><a>Book Content Understanding</a></li>
+            <li data-tab="tab2"><a>Knowledge-based Rehearsing</a></li>
+            <li data-tab="tab3"><a>Introspecting based on the Imaginary Dataset</a></li>
+          </ul>
+        </div>
+        
+        <div class="tab-content">
+          <div class="tab-pane is-active" id="tab1">
+            <h4>Book Content Understanding</h4>
             <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
+              The understanding module extracts knowledge K from books B using a knowledge extractor and aggregator. Knowledge is represented as pseudo-code, which is interpretable, compact, and expressive. The process involves:
             </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
+            <ul>
+              <li>Using an LLM-injected model to extract knowledge from paragraphs</li>
+              <li>Aggregating knowledge using another LLM-injected model</li>
+              <li>Iteratively refining and organizing knowledge into dynamics, reward, and policy-related databases</li>
+            </ul>
+          </div>
+          
+          <div class="tab-pane" id="tab2">
+            <h4>Knowledge-based Rehearsing of Decision-Making</h4>
+            <p>
+              The rehearsing stage implements a closed-loop generation process involving LLM-injected dynamics, reward, and policy functions. Key components include:
+            </p>
+            <ul>
+              <li>State-based Knowledge Scope Retrieval to address modality gaps</li>
+              <li>Post-Retrieval Knowledge Instantiation for tailoring knowledge to specific states</li>
+              <li>Generation of imaginary dataset using LLMs for actions, rewards, and next states</li>
+            </ul>
+          </div>
+          
+          <div class="tab-pane" id="tab3">
+            <h4>Introspecting based on the Imaginary Dataset</h4>
+            <p>
+              The introspection stage refines the policy using the imaginary dataset. It involves:
+            </p>
+            <ul>
+              <li>Adopting Conservative Q-learning as the base offline RL algorithm</li>
+              <li>Adding uncertainty penalties for reward and transition estimations</li>
+              <li>Implementing Conservative Imaginary Q-Learning (CIQL) to address inaccuracies in LLM-generated data</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Key Results</h2>
+    <div class="content has-text-justified">
+      <ul>
+        <li>URI outperforms baseline methods in both Google Football and Tic-Tac-Toe games:</li>
+        <ul>
+          <li>In Google Football 11v11 full-game scenarios, URI excels across all difficulty levels.</li>
+          <li>In the Hard task of Google Football, URI achieves a higher win rate than the Rule-based Policy.</li>
+          <li>In Tic-Tac-Toe, URI demonstrates superior performance against various opponents.</li>
+        </ul>
+        <li>URI significantly outperforms LLM-based methods in inference time, taking only 0.009 seconds on average to choose an action in Google Football.</li>
+        <li>Visualization of the imaginary dataset shows that generated data follows a similar distribution to real data, and uncertainty estimation identifies out-of-distribution clusters.</li>
+      </ul>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2">Key Results</h2>
+    <div class="content has-text-justified">
+      <h3 class="title is-4">1. Performance in Multiple Environments</h3>
+
+
+
+      <h4 class="title is-5">🎲 Tic-Tac-Toe Game </h4>
+      <ul>
+        <li>URI shows superior performance against various opponents.</li>
+        <li>URI's performance is closer to the optimal Minimax strategy compared to other methods.</li>
+      </ul>
+      
+      <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+        <caption>Performance Comparison in Tic-Tac-Toe (URI as Player X)</caption>
+        <thead>
+          <tr>
+            <th>Opponent (O)</th>
+            <th>Win</th>
+            <th>Draw</th>
+            <th>Loss</th>
+            <th>Net Win Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LLM-as-agent</td>
+            <td>80%</td>
+            <td>6%</td>
+            <td>14%</td>
+            <td>+66%</td>
+          </tr>
+          <tr>
+            <td>LLM-RAG</td>
+            <td>62%</td>
+            <td>10%</td>
+            <td>18%</td>
+            <td>+44%</td>
+          </tr>
+          <tr>
+            <td>Random Policy</td>
+            <td>70%</td>
+            <td>12%</td>
+            <td>18%</td>
+            <td>+52%</td>
+          </tr>
+          <tr>
+            <td>Minimax-noise</td>
+            <td>36%</td>
+            <td>54%</td>
+            <td>10%</td>
+            <td>+26%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      
+      <h4 class="title is-5">⚽ Google Football (11v11)</h4>
+      <ul>
+        <li>URI outperforms baseline methods across all difficulty levels (Easy, Medium, Hard).</li>
+        <li>In the Hard task, URI achieves a higher win rate than the Rule-based Policy.</li>
+        <li>URI demonstrates consistent performance with an average Goal Difference per Match (GDM) of 0.38 ± 0.05 across all levels.</li>
+      </ul>
+      
+      <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+        <caption>Performance Comparison Against Built-in AI Levels in GRF 11 vs 11 settings</caption>
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Metric</th>
+            <th>LLM-as-agent</th>
+            <th>LLM-RAG</th>
+            <th>Random Policy</th>
+            <th>URI (Ours)</th>
+            <th>Rule-based-AI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="4">Easy</td>
+            <td>Win</td>
+            <td>20%</td>
+            <td>30%</td>
+            <td>2%</td>
+            <td><strong>37% ± 4%</strong></td>
+            <td>70%</td>
+          </tr>
+          <tr>
+            <td>Draw</td>
+            <td>60%</td>
+            <td>60%</td>
+            <td>55%</td>
+            <td>57% ± 4%</td>
+            <td>30%</td>
+          </tr>
+          <tr>
+            <td>Lose</td>
+            <td>20%</td>
+            <td>10%</td>
+            <td>43%</td>
+            <td>6% ± 4%</td>
+            <td>0%</td>
+          </tr>
+          <tr>
+            <td>GDM</td>
+            <td>0.0</td>
+            <td>0.2</td>
+            <td>-0.58</td>
+            <td><strong>0.40 ± 0.14</strong></td>
+            <td>0.7</td>
+          </tr>
+          <tr>
+            <td rowspan="4">Medium</td>
+            <td>Win</td>
+            <td>0%</td>
+            <td>20%</td>
+            <td>2%</td>
+            <td><strong>42% ± 12%</strong></td>
+            <td>70%</td>
+          </tr>
+          <tr>
+            <td>Draw</td>
+            <td>60%</td>
+            <td>60%</td>
+            <td>43%</td>
+            <td>50% ± 8%</td>
+            <td>30%</td>
+          </tr>
+          <tr>
+            <td>Lose</td>
+            <td>40%</td>
+            <td>20%</td>
+            <td>55%</td>
+            <td>8% ± 4%</td>
+            <td>0%</td>
+          </tr>
+          <tr>
+            <td>GDM</td>
+            <td>-0.4</td>
+            <td>0.0</td>
+            <td>-0.76</td>
+            <td><strong>0.43 ± 0.24</strong></td>
+            <td>0.7</td>
+          </tr>
+          <tr>
+            <td rowspan="4">Hard</td>
+            <td>Win</td>
+            <td>0%</td>
+            <td>0%</td>
+            <td>3%</td>
+            <td><strong>32% ± 14%</strong></td>
+            <td>30%</td>
+          </tr>
+          <tr>
+            <td>Draw</td>
+            <td>50%</td>
+            <td>40%</td>
+            <td>43%</td>
+            <td>58% ± 6%</td>
+            <td>70%</td>
+          </tr>
+          <tr>
+            <td>Lose</td>
+            <td>50%</td>
+            <td>60%</td>
+            <td>53%</td>
+            <td>10% ± 7%</td>
+            <td>0%</td>
+          </tr>
+          <tr>
+            <td>GDM</td>
+            <td>-0.5</td>
+            <td>-0.6</td>
+            <td>-0.73</td>
+            <td><strong>0.32 ± 0.14</strong></td>
+            <td>0.3</td>
+          </tr>
+          <tr class="is-selected">
+            <td rowspan="2">Average</td>
+            <td>Win</td>
+            <td>6.7% ± 9.4%</td>
+            <td>16.7% ± 12.5%</td>
+            <td>2.3% ± 0.5%</td>
+            <td><strong>40.3% ± 6.2%</strong></td>
+            <td>56%</td>
+          </tr>
+          <tr class="is-selected">
+            <td>GDM</td>
+            <td>-0.30 ± 0.22</td>
+            <td>-0.13 ± 0.34</td>
+            <td>-0.69 ± 0.08</td>
+            <td><strong>0.38 ± 0.05</strong></td>
+            <td>0.56</td>
+          </tr>
+        </tbody>
+      </table>
+      
+
+
+      <h3 class="title is-4">2. Efficiency</h3>
+      <ul>
+        <li>URI significantly outperforms LLM-based methods in inference time, taking only 0.009 seconds on average to choose an action in Google Football.</li>
+      </ul>
+
+      <h3 class="title is-4">3. Data Quality</h3>
+      <ul>
+        <li>Visualization of the imaginary dataset shows that generated data follows a similar distribution to real data.</li>
+        <li>Uncertainty estimation effectively identifies out-of-distribution clusters, enhancing the robustness of the learned policy.</li>
+      </ul>
+      <div class="columns is-centered">
+        <div class="column">
+          <figure class="image">
+            <img src="static/images/exp/tsne-1.png" alt="TSNE Visualization 1">
+            <figcaption>Figure 1: t-SNE visualization of real and generated data distribution in football game</figcaption>
+          </figure>
+        </div>
+        <div class="column">
+          <figure class="image">
+            <img src="static/images/exp/ttt-tsne.png" alt="TSNE Visualization 2">
+            <figcaption>Figure 2: t-SNE visualization of real and generated data distribution in Tic-Tac-Toe game</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <!-- Visual Effects. -->
+      <div class="columns is-vcentered">
+        <div class="column is-half">
+          <div class="content">
+            <h2 class="title is-3">LLM-RAG Agent (Baseline)</h2>
+            <p>
+              This video demonstrates the performance of our LLM-RAG Agent baseline in a challenging 11 vs 11 Medium level football scenario. 
+              The agent utilizes Large Language Models (LLMs) with Retrieval-Augmented Generation (RAG) to make decisions in real-time gameplay.
+            </p>
+          </div>
+          <div style="width: 100%; height: 0; padding-bottom: 56.25%; position: relative;">
+            <video id="llm-rag-video" autoplay controls muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+              <source src="./static/videos/LLM-RAG/11_vs_11_Med/llm_rag_11v11_level_Med_3D.mp4"
                       type="video/mp4">
             </video>
           </div>
+        </div>
 
+        <div class="column is-half">
+          <div class="content">
+            <h2 class="title is-3">URI Agent (Ours)</h2>
+            <p>
+              The URI Agent demonstrates superior performance compared to the LLM-RAG baseline, showcasing enhanced decision-making capabilities and a significantly higher goal-scoring rate. This improvement is particularly evident in the agent's ability to create and capitalize on scoring opportunities more effectively.
+            </p>
+          </div>
+          <div style="width: 100%; height: 0; padding-bottom: 56.25%; position: relative;">
+            <video id="uri-agent-video" autoplay controls muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" playbackRate="5">
+              <source src="./static/videos/URI/11_vs_11_Med/URI_11v11_level_M_2-0_3D_1.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
-    </div> -->
-    <!--/ Matting. -->
+      <!--/ Visual Effects. -->
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
 
     <!-- Animation. -->
     <!-- <div class="columns is-centered">
@@ -350,6 +692,7 @@
 
         <!-- Interpolating. -->
         <!-- <h3 class="title is-4">Interpolating states</h3>
+
         <div class="content has-text-justified">
           <p>
             We can also animate the scene by interpolating the deformation latent codes of two input
@@ -357,6 +700,7 @@
             frame.
           </p>
         </div>
+
         <div class="columns is-vcentered interpolation-panel">
           <div class="column is-3 has-text-centered">
             <img src="./static/images/interpolate_start.jpg"
@@ -364,14 +708,17 @@
                  alt="Interpolate start reference image."/>
             <p>Start Frame</p>
           </div>
+
           <div class="column interpolation-video-column">
             <div id="interpolation-image-wrapper">
               Loading...
             </div>
+
             <input class="slider is-fullwidth is-large is-info"
                    id="interpolation-slider"
                    step="1" min="0" max="100" value="0" type="range">
           </div>
+
           <div class="column is-3 has-text-centered">
             <img src="./static/images/interpolate_end.jpg"
                  class="interpolation-image"
@@ -379,6 +726,7 @@
             <p class="is-bold">End Frame</p>
           </div>
         </div>
+
         <br/> -->
         <!--/ Interpolating. -->
 
@@ -403,37 +751,9 @@
         </div> -->
         <!--/ Re-rendering. -->
 
-      <!-- </div>
-    </div> -->
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <!-- <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div> -->
-      </div> 
+      </div>
     </div>
-    <!--/ Concurrent Work. -->
+    <!--/ Animation. -->
 
   </div>
 </section>
@@ -442,12 +762,12 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{xionghui2024plfb,
-  author    = {Xiong-Hui Chen and Ziyan Wang and Yali Du and Meng Fang and Shengyi Jiang and Yang Yu and Jun Wang},
-  title     = {Understanding, Rehearsing, and Introspecting: Learn a Policy from Textual Tutorial Books in Football Games},
-  journal   = {arXiv preprint},
-  year      = {2024},
-}</code></pre>
+    <pre><code>@article{chen2024understanding,
+      title={Understanding, Rehearsing, and Introspecting: Learn a Policy from Textual Tutorial Books in Football Games},
+      author={Chen, Xiong-Hui and Wang, Ziyan and Du, Yali and Fang, Meng and Jiang, Shengyi and Yu, Yang and Wang, Jun},
+      booktitle = {Advances in Neural Information Processing Systems},
+      year={2024}
+    }</code></pre>
   </div>
 </section>
 
@@ -473,6 +793,33 @@
     </div>
   </div>
 </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var tabs = document.querySelectorAll('.tabs li');
+    var tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var target = this.dataset.tab;
+
+        // 移除所有选项卡的激活状态
+        tabs.forEach(function (item) {
+          item.classList.remove('is-active');
+        });
+
+        
+        this.classList.add('is-active');
+
+        tabPanes.forEach(function (pane) {
+          pane.classList.remove('is-active');
+        });
+
+        document.getElementById(target).classList.add('is-active');
+      });
+    });
+  });
+</script>
 
 </body>
 </html>

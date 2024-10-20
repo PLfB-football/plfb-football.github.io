@@ -1,0 +1,64 @@
+
+\section{Experiments-workshop-version}
+\subsection{Setup [ziyan]}
+
+\subsection{Book Content Understanding via Iterative Code Extraction and Aggregation}
+
+How to collect the dataset. How to filter the dataset: before, after, and book names.
+
+What are the results of code extraction: 
+\begin{itemize}
+    \item shows the number of codes of different functions.
+    \item show examples.
+\end{itemize}
+
+Show the reduction progress of code aggregation.
+\begin{itemize}
+    \item iteration and number of code.
+    \item example of final results.
+\end{itemize}
+
+
+\subsection{Results of Decision-Making Data Imaginary [ziyan]}
+
+\begin{itemize}
+    % \item description of the implementation, how to select the start point, how to start and end.
+    \item vis the distribution of generated dataset and real dataset via some projection;
+    \item Show one example of retrieval, Stage 1, Stage 2: given state, the find codes, stage-1 results, stage-2 results.
+\end{itemize}
+ 
+\subsection{RL from imaginary Data via CIQL}
+
+\begin{itemize}
+    \item shows the results. some discussion.
+    \item compare different parameters of $\eta_{\rewf}$ and $\eta_{\transf}$
+    \item using different sizes of real datasets. [lp]
+\end{itemize}
+
+\begin{table*}[t]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    \toprule
+        Policy & \multicolumn{3}{c|}{CQL} &  \multicolumn{3}{c|}{\topic} & \multicolumn{3}{c|}{LLM-as-agent}  & \multicolumn{3}{c|}{LLM-RAG (natural language)} & \multicolumn{3}{c}{Rule-based-AI} \\
+         \midrule
+          &  \multicolumn{3}{c|}{Mean (Mid/Left/Right)} & \multicolumn{3}{c|}{Mean (Mid/Left/Right)}  & \multicolumn{3}{c|}{Mean (Mid/Left/Right)}  & \multicolumn{3}{c|}{Mean (Mid/Left/Right)}  & \multicolumn{3}{c}{Mean (Mid/Left/Right)}  \\  
+        \midrule
+         11\_vs\_1 (Easy) & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c}{0.53~(0.93/0.36/0.30)} \\  
+         11\_vs\_1 (Med) & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c}{0.41~(0.75/0.28/0.25)} \\  
+         11\_vs\_1 (Hard) & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c|}{11111} & \multicolumn{3}{c}{0.39~(0.72/0.29/0.17)} \\  
+         \midrule
+          & Win & Draw & Lose& Win & Draw & Lose & Win & Draw & Lose& Win & Draw & Lose& Win & Draw & Lose\\
+         \midrule
+         11\_vs\_11 (Easy) & Win & Draw & Lose& Win & Draw & Lose& Win & Draw & Lose& Win & Draw & Lose & Win & Draw & Lose\\
+         11\_vs\_11 (Med) & Win & Draw & Lose& Win & Draw & Lose& Win & Draw & Lose& Win & Draw & Lose & Win & Draw & Lose \\
+         11\_vs\_11 (Hard) & Win & Draw & Lose& Win & Draw & Lose& Win & Draw & Lose& Win & Draw & Lose & Win & Draw & Lose \\
+        \midrule
+        \midrule
+        averaged rate\\
+        \bottomrule
+    \end{tabular}
+    }
+    \caption{Performance Comparison of Different Policies Against Built-in AI Levels in a Football Simulation. In the game \textbf{11\_vs\_1}, our team have eleven players, and the opponent team has only one goalkeeper. It includes three types of difficulty, showing the distance from the goalkeeper from near to far. Each type of map includes attack tests from centre, left, and right, the ball will therefore appear in the corresponding direction according to the test, the test is one-time, if the goal is +1, other situations (such as not kicking in, going out of bounds, being guarded by the goalkeeper, etc.) are 0.  In the game \textbf{11\_vs\_11}, both team are eleven players, the difficulties means the opponents skill level with the game build-in AI. For more details information, please refer to Appendix .\ref{}}
+    \label{tab:my_label}
+\end{table*}

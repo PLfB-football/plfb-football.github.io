@@ -1,0 +1,52 @@
+% === appendix box===
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings, breakable} % 加载 breakable 库
+
+\newcommand{\hea}[1]{
+\begin{tcolorbox}[enhanced,attach boxed title to top center={yshift=-3mm,yshifttext=-1mm},
+colback=blue!5!white,colframe=blue!75!black,colbacktitle=red!80!black,
+title=Human Error Analysis, fonttitle = \bfseries, fontupper = \sffamily, fontlower = \sffamily,
+boxed title style={size=small,colframe=red!50!black}]
+{#1}
+\end{tcolorbox}}
+
+\newtcolorbox{promptbox}{
+    fonttitle = \bfseries, fontupper = \sffamily, fontlower = \sffamily,
+    title={Prompt}
+}
+\newtcolorbox{rbox}[1]{
+    fonttitle = \bfseries, fontupper = \sffamily, fontlower = \sffamily,
+    colbacktitle = red!50!white, title={#1}
+}
+\newtcolorbox{bbox}[1]{
+    fonttitle = \bfseries, fontupper = \sffamily, fontlower = \sffamily,
+    colbacktitle = blue!50!white, title={#1}
+}
+% \newtcolorbox{gbox}[1]{
+%     fonttitle = \bfseries, fontupper = \sffamily, fontlower = \sffamily,
+%     colbacktitle = teal!50!white, title={#1}
+% }
+\tcbuselibrary{listings, breakable} % 使 tcolorbox 支持 listings 和 breakable
+
+% 创建一个新计数器并将其起始值设置为 1
+\newcounter{gboxcounter}
+\setcounter{gboxcounter}{1} % 设置计数器的起始值为 1
+
+\newtcolorbox[auto counter, number within=section, number freestyle={\noexpand\arabic{gboxcounter}}]{gbox}[2][]{
+    fonttitle = \bfseries, fontupper = \sffamily, fontlower = \sffamily,
+    colbacktitle = teal!50!white, title={#1},
+    listing only,
+    breakable, % 允许框跨页
+    listing options={
+        basicstyle=\tiny\ttfamily,
+        breaklines=true,
+        showspaces=true, % 显示空格
+        showtabs=true, % 显示制表符
+        showstringspaces=true,
+    },
+    title={Prompt \thegboxcounter: #2},
+    label={#1}, % 允许传入标签,
+    before upper={\stepcounter{gboxcounter}} % 显式增加 gboxcounter
+}
