@@ -324,17 +324,19 @@
         For understanding, it first extracts knowledge from books to form a knowledge database; then it rehearses imaginary decision-making trajectories with the help of the knowledge retrieved from the database; finally, it introspects on the imaginary dataset to distill a policy network for decision-making.
       </p>
 
-      <figure class="image">
-        <img src="./static/images/phrase-1.png" alt="URI">
-        <!-- <figcaption class="has-text-centered" style="font-size: 1.1em;">Figure: Detailed overview of the URI (Understanding, Rehearsing, Introspecting) framework</figcaption> -->
-      </figure>
-
       <p style="font-size: 1.2em;">Our proposed URI framework consists of three main stages:</p>
       <ol style="font-size: 1.2em;">
         <li><strong>Understanding:</strong> The knowledge extractor and aggregator modules process paragraphs from books to form a structured knowledge database organized as pseudo-code.</li>
         <li><strong>Rehearsing:</strong> Using the knowledge database, the simulator generates and iterates through imagined states, actions, and rewards to create an extensive imaginary dataset.</li>
         <li><strong>Introspecting:</strong> The introspection module refines the policy network by evaluating and correcting errors in the generated states, actions, and rewards to ensure accurate and effective policy implementation.</li>
       </ol>
+
+      We give the first implementation for URI framework: 
+      
+      <figure class="image">
+        <img src="./static/images/phrase-1.png" alt="URI">
+        <!-- <figcaption class="has-text-centered" style="font-size: 1.1em;">Figure: Detailed overview of the URI (Understanding, Rehearsing, Introspecting) framework</figcaption> -->
+      </figure>
       
       <!-- <div class="content">
         <h3 class="title is-4">Detailed Implementation</h3> -->
